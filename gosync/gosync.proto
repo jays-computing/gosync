@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "gosync.jayscomputing.com";
+option java_outer_classname = "GoSync";
+
+package gosync;
+
+// The greeting service definition.
+service GoSync{
+  rpc JoinSession(JoinRequest) returns (JoinReply) {}
+  rpc GetEvents(void) returns (stream GSMessage) {}
+}
+
+message GSMessage {
+  int time = 1;
+  int session_id = 3;
+  string message = 4;
+}
+
+message Session {
+  string session_id = 1;
+  string session_name = 2;
+}
+
+message JoinRequest{
+  string name = 1;
+}
+
+message JoinReply{
+    Session session = 1;
+}
