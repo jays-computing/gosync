@@ -7,26 +7,41 @@ option java_outer_classname = "GoSync";
 package gosync;
 
 // The greeting service definition.
-service GoSync{
-  rpc JoinSession(JoinRequest) returns (JoinReply) {}
-  rpc GetEvents(void) returns (stream GSMessage) {}
+service GoSync {
+    rpc JoinSession (JoinRequest) returns (Session) {
+    }
+    rpc GetEvents (GetEventsRequest) returns (stream GSMessage) {
+    }
+    rpc PublishEvent(PublishRequest) returns (PublishResult) {
+    }
 }
 
+message GetEventsRequest {
+    Session session = 1;
+}
 message GSMessage {
-  int time = 1;
-  int session_id = 3;
-  string message = 4;
+    int32 time = 1;
+    string message = 4;
 }
 
 message Session {
-  string session_id = 1;
-  string session_name = 2;
+    string session_id = 1;
+    string session_name = 2;
 }
 
-message JoinRequest{
-  string name = 1;
+message JoinRequest {
+    string name = 1;
 }
 
-message JoinReply{
+message JoinReply {
     Session session = 1;
+}
+
+message PublishRequest {
+    Session session = 1;
+    GSMessage message = 2;
+}
+
+message PublishResult {
+
 }
