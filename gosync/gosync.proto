@@ -8,7 +8,7 @@ package gosync;
 
 // The greeting service definition.
 service GoSync {
-    rpc JoinSession (JoinRequest) returns (Session) {
+    rpc JoinSession (JoinRequest) returns (JoinReply) {
     }
     rpc GetEvents (GetEventsRequest) returns (stream GSMessage) {
     }
@@ -18,6 +18,8 @@ service GoSync {
 
 message GetEventsRequest {
     Session session = 1;
+    int32 guest_id = 2;
+    int32 ntp_time_rtt = 5;
 }
 message GSMessage {
     int32 time = 1;
@@ -27,6 +29,7 @@ message GSMessage {
 message Session {
     string session_id = 1;
     string session_name = 2;
+    string ntp_host= 3;
 }
 
 message JoinRequest {
@@ -35,6 +38,7 @@ message JoinRequest {
 
 message JoinReply {
     Session session = 1;
+    int32 guest_id = 2;
 }
 
 message PublishRequest {
